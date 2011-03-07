@@ -6,7 +6,8 @@
 
 package by.blooddy.crypto {
 
-	import by.blooddy.math.utils.IntUtils;
+	CRYPTO::debug
+	import by.blooddy.math.utils.IntUtils; // почему-то выдаёт ошибку при компиляции для апарата, без исключения
 	import by.blooddy.system.Memory;
 	
 	import flash.system.ApplicationDomain;
@@ -307,72 +308,140 @@ package by.blooddy.crypto {
 				xD = Memory.getI32( i );	i += 4;
 				xE = Memory.getI32( i );	i += 4;
 				xF = Memory.getI32( i );	i += 4;
-				
-				a = FF( a, b, c, d, x0, S11, T00 );
-				d = FF( d, a, b, c, x1, S12, T01 );
-				c = FF( c, d, a, b, x2, S13, T02 );
-				b = FF( b, c, d, a, x3, S14, T03 );
-				a = FF( a, b, c, d, x4, S11, T04 );
-				d = FF( d, a, b, c, x5, S12, T05 );
-				c = FF( c, d, a, b, x6, S13, T06 );
-				b = FF( b, c, d, a, x7, S14, T07 );
-				a = FF( a, b, c, d, x8, S11, T08 );
-				d = FF( d, a, b, c, x9, S12, T09 );
-				c = FF( c, d, a, b, xA, S13, T0A );
-				b = FF( b, c, d, a, xB, S14, T0B );
-				a = FF( a, b, c, d, xC, S11, T0C );
-				d = FF( d, a, b, c, xD, S12, T0D );
-				c = FF( c, d, a, b, xE, S13, T0E );
-				b = FF( b, c, d, a, xF, S14, T0F );
-				a = GG( a, b, c, d, x1, S21, T10 );
-				d = GG( d, a, b, c, x6, S22, T11 );
-				c = GG( c, d, a, b, xB, S23, T12 );
-				b = GG( b, c, d, a, x0, S24, T13 );
-				a = GG( a, b, c, d, x5, S21, T14 );
-				d = GG( d, a, b, c, xA, S22, T15 );
-				c = GG( c, d, a, b, xF, S23, T16 );
-				b = GG( b, c, d, a, x4, S24, T17 );
-				a = GG( a, b, c, d, x9, S21, T18 );
-				d = GG( d, a, b, c, xE, S22, T19 );
-				c = GG( c, d, a, b, x3, S23, T1A );
-				b = GG( b, c, d, a, x8, S24, T1B );
-				a = GG( a, b, c, d, xD, S21, T1C );
-				d = GG( d, a, b, c, x2, S22, T1D );
-				c = GG( c, d, a, b, x7, S23, T1E );
-				b = GG( b, c, d, a, xC, S24, T1F );
-				a = HH( a, b, c, d, x5, S31, T20 );
-				d = HH( d, a, b, c, x8, S32, T21 );
-				c = HH( c, d, a, b, xB, S33, T22 );
-				b = HH( b, c, d, a, xE, S34, T23 );
-				a = HH( a, b, c, d, x1, S31, T24 );
-				d = HH( d, a, b, c, x4, S32, T25 );
-				c = HH( c, d, a, b, x7, S33, T26 );
-				b = HH( b, c, d, a, xA, S34, T27 );
-				a = HH( a, b, c, d, xD, S31, T28 );
-				d = HH( d, a, b, c, x0, S32, T29 );
-				c = HH( c, d, a, b, x3, S33, T2A );
-				b = HH( b, c, d, a, x6, S34, T2B );
-				a = HH( a, b, c, d, x9, S31, T2C );
-				d = HH( d, a, b, c, xC, S32, T2D );
-				c = HH( c, d, a, b, xF, S33, T2E );
-				b = HH( b, c, d, a, x2, S34, T2F );
-				a = II( a, b, c, d, x0, S41, T30 );
-				d = II( d, a, b, c, x7, S42, T31 );
-				c = II( c, d, a, b, xE, S43, T32 );
-				b = II( b, c, d, a, x5, S44, T33 );
-				a = II( a, b, c, d, xC, S41, T34 );
-				d = II( d, a, b, c, x3, S42, T35 );
-				c = II( c, d, a, b, xA, S43, T36 );
-				b = II( b, c, d, a, x1, S44, T37 );
-				a = II( a, b, c, d, x8, S41, T38 );
-				d = II( d, a, b, c, xF, S42, T39 );
-				c = II( c, d, a, b, x6, S43, T3A );
-				b = II( b, c, d, a, xD, S44, T3B );
-				a = II( a, b, c, d, x4, S41, T3C );
-				d = II( d, a, b, c, xB, S42, T3D );
-				c = II( c, d, a, b, x2, S43, T3E );
-				b = II( b, c, d, a, x9, S44, T3F );
-				
+
+				CRYPTO::debug {
+					a = FF( a, b, c, d, x0, S11, T00 );
+					d = FF( d, a, b, c, x1, S12, T01 );
+					c = FF( c, d, a, b, x2, S13, T02 );
+					b = FF( b, c, d, a, x3, S14, T03 );
+					a = FF( a, b, c, d, x4, S11, T04 );
+					d = FF( d, a, b, c, x5, S12, T05 );
+					c = FF( c, d, a, b, x6, S13, T06 );
+					b = FF( b, c, d, a, x7, S14, T07 );
+					a = FF( a, b, c, d, x8, S11, T08 );
+					d = FF( d, a, b, c, x9, S12, T09 );
+					c = FF( c, d, a, b, xA, S13, T0A );
+					b = FF( b, c, d, a, xB, S14, T0B );
+					a = FF( a, b, c, d, xC, S11, T0C );
+					d = FF( d, a, b, c, xD, S12, T0D );
+					c = FF( c, d, a, b, xE, S13, T0E );
+					b = FF( b, c, d, a, xF, S14, T0F );
+					a = GG( a, b, c, d, x1, S21, T10 );
+					d = GG( d, a, b, c, x6, S22, T11 );
+					c = GG( c, d, a, b, xB, S23, T12 );
+					b = GG( b, c, d, a, x0, S24, T13 );
+					a = GG( a, b, c, d, x5, S21, T14 );
+					d = GG( d, a, b, c, xA, S22, T15 );
+					c = GG( c, d, a, b, xF, S23, T16 );
+					b = GG( b, c, d, a, x4, S24, T17 );
+					a = GG( a, b, c, d, x9, S21, T18 );
+					d = GG( d, a, b, c, xE, S22, T19 );
+					c = GG( c, d, a, b, x3, S23, T1A );
+					b = GG( b, c, d, a, x8, S24, T1B );
+					a = GG( a, b, c, d, xD, S21, T1C );
+					d = GG( d, a, b, c, x2, S22, T1D );
+					c = GG( c, d, a, b, x7, S23, T1E );
+					b = GG( b, c, d, a, xC, S24, T1F );
+					a = HH( a, b, c, d, x5, S31, T20 );
+					d = HH( d, a, b, c, x8, S32, T21 );
+					c = HH( c, d, a, b, xB, S33, T22 );
+					b = HH( b, c, d, a, xE, S34, T23 );
+					a = HH( a, b, c, d, x1, S31, T24 );
+					d = HH( d, a, b, c, x4, S32, T25 );
+					c = HH( c, d, a, b, x7, S33, T26 );
+					b = HH( b, c, d, a, xA, S34, T27 );
+					a = HH( a, b, c, d, xD, S31, T28 );
+					d = HH( d, a, b, c, x0, S32, T29 );
+					c = HH( c, d, a, b, x3, S33, T2A );
+					b = HH( b, c, d, a, x6, S34, T2B );
+					a = HH( a, b, c, d, x9, S31, T2C );
+					d = HH( d, a, b, c, xC, S32, T2D );
+					c = HH( c, d, a, b, xF, S33, T2E );
+					b = HH( b, c, d, a, x2, S34, T2F );
+					a = II( a, b, c, d, x0, S41, T30 );
+					d = II( d, a, b, c, x7, S42, T31 );
+					c = II( c, d, a, b, xE, S43, T32 );
+					b = II( b, c, d, a, x5, S44, T33 );
+					a = II( a, b, c, d, xC, S41, T34 );
+					d = II( d, a, b, c, x3, S42, T35 );
+					c = II( c, d, a, b, xA, S43, T36 );
+					b = II( b, c, d, a, x1, S44, T37 );
+					a = II( a, b, c, d, x8, S41, T38 );
+					d = II( d, a, b, c, xF, S42, T39 );
+					c = II( c, d, a, b, x6, S43, T3A );
+					b = II( b, c, d, a, xD, S44, T3B );
+					a = II( a, b, c, d, x4, S41, T3C );
+					d = II( d, a, b, c, xB, S42, T3D );
+					c = II( c, d, a, b, x2, S43, T3E );
+					b = II( b, c, d, a, x9, S44, T3F );
+				}
+				CRYPTO::inline {
+					MD5$.FF( a, b, c, d, x0, S11, T00 );
+					MD5$.FF( d, a, b, c, x1, S12, T01 );
+					MD5$.FF( c, d, a, b, x2, S13, T02 );
+					MD5$.FF( b, c, d, a, x3, S14, T03 );
+					MD5$.FF( a, b, c, d, x4, S11, T04 );
+					MD5$.FF( d, a, b, c, x5, S12, T05 );
+					MD5$.FF( c, d, a, b, x6, S13, T06 );
+					MD5$.FF( b, c, d, a, x7, S14, T07 );
+					MD5$.FF( a, b, c, d, x8, S11, T08 );
+					MD5$.FF( d, a, b, c, x9, S12, T09 );
+					MD5$.FF( c, d, a, b, xA, S13, T0A );
+					MD5$.FF( b, c, d, a, xB, S14, T0B );
+					MD5$.FF( a, b, c, d, xC, S11, T0C );
+					MD5$.FF( d, a, b, c, xD, S12, T0D );
+					MD5$.FF( c, d, a, b, xE, S13, T0E );
+					MD5$.FF( b, c, d, a, xF, S14, T0F );
+					MD5$.GG( a, b, c, d, x1, S21, T10 );
+					MD5$.GG( d, a, b, c, x6, S22, T11 );
+					MD5$.GG( c, d, a, b, xB, S23, T12 );
+					MD5$.GG( b, c, d, a, x0, S24, T13 );
+					MD5$.GG( a, b, c, d, x5, S21, T14 );
+					MD5$.GG( d, a, b, c, xA, S22, T15 );
+					MD5$.GG( c, d, a, b, xF, S23, T16 );
+					MD5$.GG( b, c, d, a, x4, S24, T17 );
+					MD5$.GG( a, b, c, d, x9, S21, T18 );
+					MD5$.GG( d, a, b, c, xE, S22, T19 );
+					MD5$.GG( c, d, a, b, x3, S23, T1A );
+					MD5$.GG( b, c, d, a, x8, S24, T1B );
+					MD5$.GG( a, b, c, d, xD, S21, T1C );
+					MD5$.GG( d, a, b, c, x2, S22, T1D );
+					MD5$.GG( c, d, a, b, x7, S23, T1E );
+					MD5$.GG( b, c, d, a, xC, S24, T1F );
+					MD5$.HH( a, b, c, d, x5, S31, T20 );
+					MD5$.HH( d, a, b, c, x8, S32, T21 );
+					MD5$.HH( c, d, a, b, xB, S33, T22 );
+					MD5$.HH( b, c, d, a, xE, S34, T23 );
+					MD5$.HH( a, b, c, d, x1, S31, T24 );
+					MD5$.HH( d, a, b, c, x4, S32, T25 );
+					MD5$.HH( c, d, a, b, x7, S33, T26 );
+					MD5$.HH( b, c, d, a, xA, S34, T27 );
+					MD5$.HH( a, b, c, d, xD, S31, T28 );
+					MD5$.HH( d, a, b, c, x0, S32, T29 );
+					MD5$.HH( c, d, a, b, x3, S33, T2A );
+					MD5$.HH( b, c, d, a, x6, S34, T2B );
+					MD5$.HH( a, b, c, d, x9, S31, T2C );
+					MD5$.HH( d, a, b, c, xC, S32, T2D );
+					MD5$.HH( c, d, a, b, xF, S33, T2E );
+					MD5$.HH( b, c, d, a, x2, S34, T2F );
+					MD5$.II( a, b, c, d, x0, S41, T30 );
+					MD5$.II( d, a, b, c, x7, S42, T31 );
+					MD5$.II( c, d, a, b, xE, S43, T32 );
+					MD5$.II( b, c, d, a, x5, S44, T33 );
+					MD5$.II( a, b, c, d, xC, S41, T34 );
+					MD5$.II( d, a, b, c, x3, S42, T35 );
+					MD5$.II( c, d, a, b, xA, S43, T36 );
+					MD5$.II( b, c, d, a, x1, S44, T37 );
+					MD5$.II( a, b, c, d, x8, S41, T38 );
+					MD5$.II( d, a, b, c, xF, S42, T39 );
+					MD5$.II( c, d, a, b, x6, S43, T3A );
+					MD5$.II( b, c, d, a, xD, S44, T3B );
+					MD5$.II( a, b, c, d, x4, S41, T3C );
+					MD5$.II( d, a, b, c, xB, S42, T3D );
+					MD5$.II( c, d, a, b, x2, S43, T3E );
+					MD5$.II( b, c, d, a, x9, S44, T3F );
+				}
+
 				a += aa;
 				b += bb;
 				c += cc;
@@ -387,38 +456,46 @@ package by.blooddy.crypto {
 
 		}
 
+		CRYPTO::debug
 		/**
+		 * @private
 		 * transformations for round 1
 		 */
 		private static function FF(a:int, b:int, c:int, d:int, x:int, s:int, t:int):int {
 			a += ( ( b & c ) | ( ( ~b ) & d ) ) + x + t;
-			return IntUtils.rol( a, s ) +  b;
+			return IntUtils.rol( a, s ) + b;
 		}
-		
+
+		CRYPTO::debug
 		/**
+		 * @private
 		 * transformations for round 2
 		 */
 		private static function GG(a:int, b:int, c:int, d:int, x:int, s:int, t:int):int {
 			a += ( ( b & d ) | ( c & ( ~d ) ) ) + x + t;
-			return IntUtils.rol( a, s ) +  b;
+			return IntUtils.rol( a, s ) + b;
 		}
-		
+
+		CRYPTO::debug
 		/**
+		 * @private
 		 * transformations for round 3
 		 */
 		private static function HH(a:int, b:int, c:int, d:int, x:int, s:int, t:int):int {
 			a += ( b ^ c ^ d ) + x + t;
-			return IntUtils.rol( a, s ) +  b;
+			return IntUtils.rol( a, s ) + b;
 		}
-		
+
+		CRYPTO::debug
 		/**
+		 * @private
 		 * transformations for round 4
 		 */
 		private static function II(a:int, b:int, c:int, d:int, x:int, s:int, t:int):int {
 			a += ( c ^ ( b | ( ~d ) ) ) + x + t;
-			return IntUtils.rol( a, s ) +  b;
+			return IntUtils.rol( a, s ) + b;
 		}
-		
+
 		//--------------------------------------------------------------------------
 		//
 		//  Constructor
